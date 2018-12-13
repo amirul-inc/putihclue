@@ -1,0 +1,7 @@
+#ignoring file
+
+node_modules
+*.env
+.DS_Store
+.DS_Store?
+.log
