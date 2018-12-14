@@ -1,54 +1,52 @@
 const Tenant = require('../models/Tenant')
+const User = require('../models/User')
 
 module.exports = {
     create: function (req, res, next) {
-        Tenant.create({
-                name: req.body.name,
-                phone: req.body.phone,
-                email: req.body.email,
-                description: req.body.description,
-                status: req.body.status,
-                images: req.file.path
-            },
-            function (err, result) {
-                if (err)
-                    next(err)
-                else res.json({
-                    status: 'success',
-                    message: 'Tenant added!',
-                    data: result
-                })
-            })
-    },
-    getAll: function (req, res, next) {
-        let DataTenant = []
-        Tenant.find({}, function (err, tenants) {
-            if (err)
-                next(err)
-            else {
-                for (let tenant of tenants) {
-                    DataTenant.push({
-                        id: tenant._id,
-                        name: tenant.name,
-                        phone: tenant.phone,
-                        email: tenant.email,
-                        description: tenant.description,
-                        status: tenant.status,
-                        images: tenant.images
+        User.findById(req.body.userId, function (err, member) {
+            console.log('member :', member)
+
+            Tenant.create({
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    description: req.body.description,
+                    status: req.body.status,
+                    images: req.file.path,
+                    member: req.body.userId
+                },
+                function (err, result) {
+                    if (err)
+                        next(err)
+                    else res.json({
+                        status: 'success',
+                        message: 'Tenant added!',
+                        data: result
                     })
-                }
-                res.json({
-                    status: 'success',
-                    message: 'tenant list found!',
-                    data: {
-                        tenant: DataTenant
-                    }
                 })
-            }
+
         })
     },
+    getAll: function (req, res, next) {
+        Tenant.aggregate([{
+                $graphLookup: {
+                    from: 'users',
+                    startWith: '$member',
+                    connectFromField: 'member',
+                    connectToField: '_id',
+                    as: 'userDetail'
+                }
+
+            }])
+            .exec(function (err, result) {
+                console.log('result: ', result[0].userDetail);
+                res.json(result)
+            })
+        return;
+
+    },
     getById: function (req, res, next) {
-        Tenant.findById(req.params.TenantId, (err, TenantInfo) => {
+        Tenant.findById(req.params.tenantId, (err, TenantInfo) => {
             if (err)
                 next(err)
             else {
@@ -63,8 +61,13 @@ module.exports = {
         })
     },
     updateById: function (req, res, next) {
-        Tenant.findByIdAndUpdate(req.params.TenantId, {
-            name: req.body.name
+        Tenant.findByIdAndUpdate(req.params.tenantId, {
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
+            description: req.body.description,
+            status: req.body.status,
+            images: req.file.path
         }, function (err, TenantInfo) {
             if (err)
                 next(err)
@@ -78,7 +81,7 @@ module.exports = {
         })
     },
     deleteByid: function (req, res, next) {
-        Tenant.findByIdAndRemove(req.params.TenantId, function (err, TenantInfo) {
+        Tenant.findByIdAndRemove(req.params.tenantId, function (err, TenantInfo) {
             if (err)
                 next(err)
             else {

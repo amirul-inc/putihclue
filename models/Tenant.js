@@ -23,6 +23,10 @@ const TenantSchema = new Schema({
         default: ['Inactive'],
         required: true
     },
+    member: [{
+        type: Schema.Types.ObjectId,
+        ref : "User"}
+    ],
     images: {
         type: String
     }
