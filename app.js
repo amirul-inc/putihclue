@@ -12,6 +12,7 @@ require('dotenv').config()
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const tenantRouter = require('./routes/tenant')
+const itemRouter = require('./routes/item')
 
 const app = express();
 const mongodConnect = process.env.MONGOLAB_URI
@@ -19,10 +20,10 @@ const mongodConnect = process.env.MONGOLAB_URI
 mongoose.connect(mongodConnect)
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, './public/images/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + file.originalname);
   }
 });
@@ -71,6 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
 app.use('/api', upload.single('image'), tenantRouter);
+app.use('/api', upload.single('image'), itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -25,12 +25,11 @@ const TenantSchema = new Schema({
     },
     member: [{
         type: Schema.Types.ObjectId,
-        ref : "User"}
-    ],
+        ref: "User"
+    }],
     images: {
         type: String
     }
-
 
 })
 module.exports = mongoose.model('Tenant', TenantSchema)
