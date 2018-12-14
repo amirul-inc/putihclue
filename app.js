@@ -7,12 +7,15 @@ const cors = require('cors')
 const logger = require('morgan');
 const mongoose = require('mongoose')
 const multer = require('multer');
+const WithAuth = require('./middleware/Auth')
+var jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const tenantRouter = require('./routes/tenant')
 const itemRouter = require('./routes/item')
+const orderRouter = require('./routes/order')
 
 const app = express();
 const mongodConnect = process.env.MONGOLAB_URI
@@ -73,6 +76,7 @@ app.use('/', indexRouter);
 app.use('/api', usersRouter);
 app.use('/api', upload.single('image'), tenantRouter);
 app.use('/api', upload.single('image'), itemRouter);
+app.use('/api', WithAuth.validateUser, orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
