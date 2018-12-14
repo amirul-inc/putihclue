@@ -6,15 +6,44 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const logger = require('morgan');
 const mongoose = require('mongoose')
+const multer = require('multer');
 require('dotenv').config()
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const tenantRouter = require('./routes/tenant')
 
 const app = express();
 const mongodConnect = process.env.MONGOLAB_URI
 
 mongoose.connect(mongodConnect)
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './public/images/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 
 
 
@@ -41,6 +70,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
+app.use('/api', upload.single('image'), tenantRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
