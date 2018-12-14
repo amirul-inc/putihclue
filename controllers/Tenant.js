@@ -46,5 +46,48 @@ module.exports = {
                 })
             }
         })
+    },
+    getById: function (req, res, next) {
+        Tenant.findById(req.params.TenantId, (err, TenantInfo) => {
+            if (err)
+                next(err)
+            else {
+                res.json({
+                    status: 'Success',
+                    message: 'Tenant found!',
+                    data: {
+                        tenants: TenantInfo
+                    }
+                })
+            }
+        })
+    },
+    updateById: function (req, res, next) {
+        Tenant.findByIdAndUpdate(req.params.TenantId, {
+            name: req.body.name
+        }, function (err, TenantInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json({
+                    status: 'success',
+                    message: 'Tenant Update Successfully...',
+                    data: TenantInfo
+                })
+            }
+        })
+    },
+    deleteByid: function (req, res, next) {
+        Tenant.findByIdAndRemove(req.params.TenantId, function (err, TenantInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json({
+                    status: 'success',
+                    message: 'Tenant Deleted Successfully...',
+                    data: TenantInfo
+                })
+            }
+        })
     }
 }
