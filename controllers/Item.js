@@ -7,7 +7,7 @@ module.exports = {
                 description: req.body.description,
                 maxmember: req.body.maxmember,
                 price: req.body.price,
-                images: req.body.images,
+                images: req.file.path,
                 facilities: [{
                     meetingroom: req.body.meetingroom,
                     silentroom: req.body.silentroom,
@@ -31,4 +31,35 @@ module.exports = {
                 })
             })
     },
+    getAll: function (req, res, next) {
+        let itemList = [];
+
+        Item.find({}, function (err, items) {
+            if (err) {
+                next(err);
+            } else {
+                for (let item of items) {
+                    itemList.push({
+                        id: item._id,
+                        name: item.name,
+                        description: item.description,
+                        maxmember: item.maxmember,
+                        price: item.price,
+                        images: item.images,
+                        facilities: item.facilities
+                    });
+                }
+                res.json({
+                    status: "success",
+                    message: "Item list found!!!",
+                    data: {
+                        guests: itemList
+                    }
+                });
+
+            }
+
+        });
+
+    }
 }

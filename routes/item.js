@@ -3,10 +3,10 @@ const router = express.Router();
 
 const ItemController = require('../controllers/Item')
 
-/* POST Tenant . */
+/* POST Item . */
 router.post('/item', ItemController.create)
-/* GET Tenant Listing. */
-// router.get('/item', ItemController.getAll)
+/* GET Item Listing. */
+router.get('/item', ItemController.getAll)
 /* PUT Tenant Listing. */
 // router.put('/tenant/:tenantId', TenantController.updateById)
 /* GET/:id Tenant Listing. */
