@@ -19,7 +19,9 @@ const TenantSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['Active', 'Inactive']
+        enum: ['Active', 'Inactive'],
+        default: ['Inactive'],
+        required: true
     },
     images: {
         type: String

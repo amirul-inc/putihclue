@@ -3,9 +3,9 @@ const router = express.Router();
 
 const TenantController = require('../controllers/Tenant')
 
-/* POST users . */
+/* POST Tenant . */
 router.post('/tenant', TenantController.create)
-/* GET users listing. */
-// router.get('/users', UserController.getAll)
+/* GET Tenant Listing. */
+router.get('/tenant', TenantController.getAll)
 
 module.exports = router;
