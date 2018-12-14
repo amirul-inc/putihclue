@@ -33,10 +33,22 @@ module.exports = {
                     foreignField: '_id',
                     as: 'itemDetails'
                 }
-            }
+            },
+            {
+                $unwind: '$itemDetails'
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'user',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+
         ])
         .exec(function(err, result){
-            console.log('result: ', result[0].itemDetails)
+            console.log('result: ', result.userDetails)
             res.json(result)
             
         })
