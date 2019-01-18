@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
 
 //Define a schema
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-	username: {
+const GuestSchema = new Schema({
+    company: {
         type: String,
         required: true
       },
-      fullname:{
+	fullname: {
         type: String,
         required: true
       },
@@ -18,17 +16,17 @@ const UserSchema = new Schema({
         type: String,
         required: true
       },
-      password: {
-        type: String,
-        required: true
-      },
       phone: {
         type: String,
         require: true
       },
-      isAdmin: {
-        type: Boolean,
-        default: false
+      necessary: {
+        type: String,
+        required: true
+      },
+      meet: {
+        type: String,
+        required: true
       },
       createdAt: {
         type: Date,
@@ -42,9 +40,4 @@ const UserSchema = new Schema({
       }
 });
 
-UserSchema.pre('save', function(next){
-this.password = bcrypt.hashSync(this.password, saltRounds);
-next();
-});
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Guest', GuestSchema);

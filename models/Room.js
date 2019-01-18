@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 //Define a schema
 const Schema = mongoose.Schema;
 
-const ItemSchema = new Schema({
+const RoomSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -16,13 +16,18 @@ accesstime: {
     type: String,
     required: true
 },
+price: {
+  type: String,
+  required: true
+},
 description: {
-    type: String
+    type: String,
+    required: true
 },
 status: {
     type: String,
-    enum: ['Avilable', 'Booked'],
-    default: ['Avilable'],
+    enum: ['Available', 'Booked'],
+    default: ['Available'],
     required: true
 },
 images: {
@@ -41,4 +46,4 @@ updatedAt: {
 
 });
 
-module.exports = mongoose.model('Item', ItemSchema);
+module.exports = mongoose.model('Room', RoomSchema);

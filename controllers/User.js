@@ -6,6 +6,7 @@ module.exports = {
     create: function (req, res, next) {
         User.create({
                 username: req.body.username,
+                fullname: req.body.fullname,
                 email: req.body.email,
                 password: req.body.password,
                 phone: req.body.phone,
@@ -32,6 +33,7 @@ module.exports = {
                     Users.push({
                         id: user._id,
                         username: user.username,
+                        fullname: user.fullname,
                         email: user.email,
                         password: user.password,
                         phone: user.phone,
@@ -39,19 +41,14 @@ module.exports = {
 
                     })
                 }
-                res.json({
-                    status: "success",
-                    message: "User list found!!!",
-                    data: {
-                        users: Users
-                    }
-                })
+                res.json(Users
+                )
             }
         })
     },
     authenticated: function (req, res, next) {
         User.findOne({
-            username: req.body.username
+            email: req.body.email
         }, function (err, UserInfo) {
             if (err) {
                 next(err)
@@ -60,15 +57,10 @@ module.exports = {
                     const token = jwt.sign({
                         id: UserInfo._id
                     }, req.app.get('secretKey'), {
-                        expiresIn: '1h'
+                        expiresIn: '2 days'
                     })
                     res.json({
-                        status: 'success',
-                        message: 'User found!',
-                        data: {
-                            user: UserInfo,
-                            token: token
-                        }
+                            token
                     })
                 } else {
                     res.json({

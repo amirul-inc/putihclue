@@ -1,8 +1,21 @@
-const mongoose = require('mongoose')
+const mongoose = require ('mongoose')
 const Schema = mongoose.Schema
 
-const TenantSchema = new Schema({
-    name: {
+let RoomOrderSchema = new Schema ({
+    fullname: {
+        type: String,
+        required: true
+    },
+    company: {
+        type: String,
+        required: true
+    },
+    room: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Room"
+    },
+    email: {
         type: String,
         required: true
     },
@@ -10,25 +23,10 @@ const TenantSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String
-    },
     status: {
         type: String,
-        enum: ['Active', 'Inactive'],
-        default: ['Inactive'],
-        required: true
-    },
-    member: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }],
-    images: {
-        type: String
+        enum: ['Paid', 'Unpaid'],
+        default: 'Unpaid'
     },
     createdAt: {
         type: Date,
@@ -40,6 +38,6 @@ const TenantSchema = new Schema({
         required: true,
         default: Date.now
     }
-
 })
-module.exports = mongoose.model('Tenant', TenantSchema)
+
+module.exports = Order = mongoose.model("RoomOrder", RoomOrderSchema);

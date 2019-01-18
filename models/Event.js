@@ -1,32 +1,31 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const TenantSchema = new Schema({
+const EventSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    phone: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
     description: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: String
+    },
+    time: {
         type: String
     },
     status: {
         type: String,
-        enum: ['Active', 'Inactive'],
-        default: ['Inactive'],
+        enum: ['Free', 'Regular'],
+        default: ['Free'],
         required: true
     },
-    member: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }],
+    price: {
+        type: String,
+        default: 'Rp. 0'
+    },
     images: {
         type: String
     },
@@ -42,4 +41,4 @@ const TenantSchema = new Schema({
     }
 
 })
-module.exports = mongoose.model('Tenant', TenantSchema)
+module.exports = mongoose.model('Event', EventSchema)

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const OrderController = require('../controllers/EventOrder')
+const OrderController = require('../controllers/RoomOrder')
 
 /* POST Item . */
-router.post('/event/order', OrderController.create)
+router.post('/room/order', OrderController.create)
 /* GET Item Listing. */
-router.get('/event/order', OrderController.getAll)
+router.get('/room/order', OrderController.getAll)
 /* PUT Tenant Listing. */
 // router.put('/tenant/:tenantId', TenantController.updateById)
 /* GET/:id Tenant Listing. */

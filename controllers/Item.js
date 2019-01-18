@@ -2,34 +2,24 @@ const Item = require('../models/Item')
 
 module.exports = {
     create: function (req, res, next) {
-        Item.create({
-                name: req.body.name,
-                description: req.body.description,
-                maxmember: req.body.maxmember,
-                price: req.body.price,
-                images: req.file.path,
-                facilities: [{
-                    meetingroom: req.body.meetingroom,
-                    silentroom: req.body.silentroom,
-                    paperprint: req.body.paperprint,
-                    silentroom: req.body.silentroom,
-                    freeflow: req.body.freeflow,
-                    premiumflow: req.body.premiumflow,
-                    mailphoneservice: req.body.mailphoneservice,
-                    locker: req.body.locker,
-                    passport: req.body.passport,
-                    guestpass: req.body.guestpass
-                }]
-            },
-            function (err, result) {
-                if (err)
-                    next(err)
-                else res.json({
-                    status: 'success',
-                    message: 'Create Item Successfuly!',
-                    data: result
+            Item.create({
+                    name: req.body.name,
+                    description: req.body.description,
+                    capacity: req.body.capacity,
+                    accesstime: req.body.accesstime,
+                    images: req.file.path,
+                    price: req.body.price,
+                    status: req.body.status
+                },
+                function (err, result) {
+                    if (err)
+                        next(err)
+                    else res.json({
+                        status: 'success',
+                        message: 'Item added!',
+                        data: result
+                    })
                 })
-            })
     },
     getAll: function (req, res, next) {
         let itemList = [];
@@ -41,25 +31,37 @@ module.exports = {
                 for (let item of items) {
                     itemList.push({
                         id: item._id,
-                        name: item.name,
+                        title: item.title,
                         description: item.description,
-                        maxmember: item.maxmember,
+                        capacity: item.capacity,
+                        accesstime: item.accesstime,
                         price: item.price,
-                        images: item.images,
-                        facilities: item.facilities
+                        images: item.images
                     });
                 }
-                res.json({
-                    status: "success",
-                    message: "Item list found!!!",
-                    data: {
-                        guests: itemList
-                    }
-                });
+                res.json(itemList);
+                
 
             }
 
         });
 
-    }
+    },
+    updateById: function (req, res, next) {
+        Item.findByIdAndUpdate(req.params.itemId, {
+            name: req.body.name,
+            description: req.body.description,
+            capacity: req.body.capacity,
+            accesstime: req.body.accesstime,
+            images: req.file.path,
+            price: req.body.price,
+            status: req.body.status
+        }, function (err, ItemInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(ItemInfo)
+            }
+        })
+    },
 }

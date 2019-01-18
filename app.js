@@ -16,6 +16,9 @@ const usersRouter = require('./routes/users');
 const tenantRouter = require('./routes/tenant')
 const itemRouter = require('./routes/item')
 const orderRouter = require('./routes/order')
+const guestRouter = require('./routes/guest')
+const eventRouter = require('./routes/event')
+const roomOrderRouter = require('./routes/roomorder')
 
 const app = express();
 const mongodConnect = process.env.MONGOLAB_URI
@@ -64,6 +67,8 @@ app.use(
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use('/public', express.static('public'))
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -74,9 +79,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
-app.use('/api', upload.single('image'), tenantRouter);
-app.use('/api', upload.single('image'), itemRouter);
-app.use('/api', WithAuth.validateUser, orderRouter);
+app.use('/api', upload.single('images'), tenantRouter);
+app.use('/api', itemRouter);
+app.use('/api', eventRouter);
+app.use('/api', orderRouter);
+app.use('/api', guestRouter);
+app.use('/api', roomOrderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -91,7 +99,14 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  let resultError = JSON.stringify(err);
+
+  if (resultError == "{}"){
+    res.send(err && err.stack);
+  }else{
+    res.setHeader('Content-Type', 'Application/json')
+    res.send(JSON.stringify(err))
+  }
 });
 
 module.exports = app;

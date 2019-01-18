@@ -5,7 +5,7 @@ const saltRounds = 12;
 //Define a schema
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const MemberSchema = new Schema({
 	username: {
         type: String,
         required: true
@@ -47,4 +47,4 @@ this.password = bcrypt.hashSync(this.password, saltRounds);
 next();
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Member', MemberSchema);
