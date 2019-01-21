@@ -27,7 +27,7 @@ GET    | `/api/users`     | Get All
 GET    | `/api/users/:id` | get by:id
 PUT    | `/api/users/:id` | update one
 
-### Item
+### Room
 
 Method | endpoint     | Description
 ------ | ------------ | ----------------
@@ -37,18 +37,8 @@ POST   | `/api/room`     | post
 DELETE | `/api/room:id` | delete by:id
 PUT    | `/api/room:id` | update one
 
-### Tenant
 
-Method | endpoint                   | Description
------- | -------------------------- | ------------
-GET    | `/api/tenant`          | Get All
-GET    | `/api/tenant/:id` | get by:id
-DELETE | `/api/tenant/:id`               | delete by:id
-PUT | `/api/tenant/:id`               | update one
-POST | `/api/tenant`               | create new tenant
-
-
-### Room
+###  Order Room
 
 Method | endpoint                   | Description
 ------ | -------------------------- | ------------
@@ -61,6 +51,16 @@ POST | `/api/room/order`               | create new order by ._id user and ._id 
 
 ### Event
 
+Method | endpoint     | Description
+------ | ------------ | ----------------
+GET    | `/api/event`     | Get All
+GET    | `/api/event:id` | get by:id
+POST   | `/api/event`     | post 
+DELETE | `/api/event:id` | delete by:id
+PUT    | `/api/event:id` | update one
+
+### Order Event
+
 Method | endpoint                   | Description
 ------ | -------------------------- | ------------
 GET    | `/api/event/order`          | Get All order list
@@ -69,3 +69,12 @@ DELETE | `/api/event/order/:id`               | delete order by:id
 PUT | `/api/event/order/:id`               | update order
 POST | `/api/event/order`               | create new order by ._id user and ._id event
 
+### Tenant
+
+Method | endpoint                   | Description
+------ | -------------------------- | ------------
+GET    | `/api/tenant`          | Get All
+GET    | `/api/tenant/:id` | get by:id
+DELETE | `/api/tenant/:id`               | delete by:id
+PUT | `/api/tenant/:id`               | update one
+POST | `/api/tenant`               | create new tenant
