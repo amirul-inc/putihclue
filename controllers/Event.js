@@ -9,7 +9,7 @@ module.exports = {
             time: req.body.time,
             status: req.body.status,
             price: req.body.price,
-            images: req.file.path
+            images: req.file && req.file.path
         },
     function (err, result){
         if(err)
