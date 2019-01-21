@@ -8,7 +8,7 @@ module.exports = {
             Order.create({
                     fullname: req.body.fullname,
                     company: req.body.company,
-                    event: req.body.event_id,
+                    room: req.body.room_id,
                     email: req.body.email,
                     phone: req.body.phone,
                     status: req.body.status

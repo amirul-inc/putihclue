@@ -7,7 +7,7 @@ module.exports = {
                     description: req.body.description,
                     capacity: req.body.capacity,
                     accesstime: req.body.accesstime,
-                    images: req.file.path,
+                    images: req.file && req.file.path,
                     price: req.body.price,
                     status: req.body.status
                 },

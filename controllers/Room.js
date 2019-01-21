@@ -2,14 +2,13 @@ const Room = require('../models/Room')
 
 module.exports = {
     create: function (req, res, next) {
-
         Room.create({
                     name: req.body.name,
                     capacity: req.body.capacity,
                     accesstime: req.body.accesstime,
                     price: req.body.price,
                     description: req.body.description,
-                    images: req.file.path,
+                    images: req.file && req.file.path,
                     status: req.body.status
                 },
                 function (err, result) {
