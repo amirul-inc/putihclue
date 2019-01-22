@@ -12,7 +12,7 @@ module.exports = {
                     email: req.body.email,
                     description: req.body.description,
                     status: req.body.status,
-                    images: req.file.path,
+                    images: req.file && req.file.path,
                     member: req.body.userId
                 },
                 function (err, result) {
