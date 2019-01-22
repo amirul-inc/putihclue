@@ -18,11 +18,8 @@ module.exports = {
                 function (err, result) {
                     if (err)
                         next(err)
-                    else res.json({
-                        status: 'success',
-                        message: 'Tenant added!',
-                        data: result
-                    })
+                    else res.json(
+                        result)
                 })
 
         })
