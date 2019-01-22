@@ -36,8 +36,8 @@ module.exports = {
 
             }])
             .exec(function (err, result) {
-                console.log('result: ', result);
-                res.json(result)
+                console.log('result: ', result.userDetail);
+                res.json(result.userDetail)
             })
         return;
 
