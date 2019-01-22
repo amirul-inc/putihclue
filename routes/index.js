@@ -28,58 +28,58 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/event/order', (req, res, next) => {
-  var fullname = req.body.name
-  var email = req.body.email
-  var phone = req.body.phone
-  var content = `name: ${fullname} \n email: ${email} \n phone: ${phone} \n message: Terimakasih sudah melakukan pemesanan event di Ruang Kreasi, Pesanan anda sedang di proses. Tunggu Info Selanjut nya Terimakasih `
+// router.post('/event/order', (req, res, next) => {
+//   var fullname = req.body.name
+//   var email = req.body.email
+//   var phone = req.body.phone
+//   var content = `name: ${fullname} \n email: ${email} \n phone: ${phone} \n message: Terimakasih sudah melakukan pemesanan event di Ruang Kreasi, Pesanan anda sedang di proses. Tunggu Info Selanjut nya Terimakasih `
 
-  var mail = {
-    from: fullname,
-    to: email,  //Change to email address that you want to receive messages on
-    subject: 'New Message from Ruang Kreasi',
-    text: content
-  }
+//   var mail = {
+//     from: fullname,
+//     to: email,  //Change to email address that you want to receive messages on
+//     subject: 'New Message from Ruang Kreasi',
+//     text: content
+//   }
 
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        msg: 'fail'
-      })
-    } else {
-      res.json({
-        msg: 'success'
-      })
-    }
-  })
-})
+//   transporter.sendMail(mail, (err, data) => {
+//     if (err) {
+//       res.json({
+//         msg: 'fail'
+//       })
+//     } else {
+//       res.json({
+//         msg: 'success'
+//       })
+//     }
+//   })
+// })
 
-router.post('/room/order', (req, res, next) => {
-  var fullname = req.body.name
-  var email = req.body.email
-  var company = req.body.company
-  var phone = req.body.phone
-  var content = `name: ${fullname} \n email: ${email} \n company: ${company} \n phone: ${phone} \n message: Terimakasih sudah Booking Room di Ruang Kreasi, Pesanan anda sedang di proses. Tunggu Info Selanjut nya Terimakasih `
+// router.post('/room/order', (req, res, next) => {
+//   var fullname = req.body.name
+//   var email = req.body.email
+//   var company = req.body.company
+//   var phone = req.body.phone
+//   var content = `name: ${fullname} \n email: ${email} \n company: ${company} \n phone: ${phone} \n message: Terimakasih sudah Booking Room di Ruang Kreasi, Pesanan anda sedang di proses. Tunggu Info Selanjut nya Terimakasih `
 
-  var mail = {
-    from: fullname,
-    to: email,  //Change to email address that you want to receive messages on
-    subject: 'New Message from Ruang Kreasi',
-    text: content
-  }
+//   var mail = {
+//     from: fullname,
+//     to: email,  //Change to email address that you want to receive messages on
+//     subject: 'New Message from Ruang Kreasi',
+//     text: content
+//   }
 
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        msg: 'fail'
-      })
-    } else {
-      res.json({
-        msg: 'success'
-      })
-    }
-  })
-})
+//   transporter.sendMail(mail, (err, data) => {
+//     if (err) {
+//       res.json({
+//         msg: 'fail'
+//       })
+//     } else {
+//       res.json({
+//         msg: 'success'
+//       })
+//     }
+//   })
+// })
 module.exports = router;
 
 

@@ -64,4 +64,14 @@ module.exports = {
             }
         })
     },
+    deleteByid: function (req, res, next) {
+        Room.findByIdAndRemove(req.params.roomId, function (err, RoomInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(RoomInfo
+                )
+            }
+        })
+    }
 }
