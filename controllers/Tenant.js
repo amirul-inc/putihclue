@@ -34,10 +34,12 @@ module.exports = {
                     as: 'userDetail'
                 }
 
-            }])
-            .exec(function (err, result) {
-                console.log('result: ', result.userDetail);
-                res.json(result.userDetail)
+            }], function (err, result){
+                if (err)
+                next(err)
+                else 
+                console.log('result: ', result);
+                res.json(result)
             })
         return;
 
