@@ -26,7 +26,7 @@ module.exports = {
     },
     getAll: function (req, res, next) {
         Tenant.aggregate([{
-                $lookup: {
+                $graphLookup: {
                     from: 'users',
                     startWith: '$member',
                     connectFromField: 'member',
