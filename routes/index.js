@@ -1,25 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
-const creds = require('../config/config.js');
+// var nodemailer = require('nodemailer');
+// const creds = require('../config/config.js');
 
-var transport = {
-  host: 'smtp.gmail.com',
-  auth: {
-    user: creds.USER,
-    pass: creds.PASS
-  }
-}
+// var transport = {
+//   host: 'smtp.gmail.com',
+//   auth: {
+//     user: creds.USER,
+//     pass: creds.PASS
+//   }
+// }
 
-var transporter = nodemailer.createTransport(transport)
+// var transporter = nodemailer.createTransport(transport)
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Server is ready to take messages');
-  }
-});
+// transporter.verify((error, success) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Server is ready to take messages');
+//   }
+// });
 
 
 
