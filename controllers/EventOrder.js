@@ -30,9 +30,9 @@ module.exports = {
                         }
 
                         const transport = {
-                            service: 'smtp.gmail.com',
-                            // port: 465,
-                            // secure: true,
+                            host: 'smtp.gmail.com',
+                            port: 465,
+                            secure: true,
                             auth: {
                               user: process.env.EMAIL_SENDER_USER,
                               pass: process.env.EMAIL_SENDER_PASSWORD
