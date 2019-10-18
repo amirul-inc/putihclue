@@ -78,3 +78,6 @@ GET    | `/api/tenant/:id` | get by:id
 DELETE | `/api/tenant/:id`               | delete by:id
 PUT | `/api/tenant/:id`               | update one
 POST | `/api/tenant`               | create new tenant
+
+
+Ini adalah project untuk belajar fullstack javascript
