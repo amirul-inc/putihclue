@@ -42,5 +42,21 @@ module.exports = {
                 )
             }
         })
-    }
+    },
+    updateById: function (req, res, next) {
+        Guest.findByIdAndUpdate(req.params.itemId, {
+            company: req.body.company,
+            fullname: req.body.fullname,
+            email: req.body.email,
+            phone: req.body.phone,
+            necessary: req.body.necessary,
+            meet: req.body.meet,
+        }, function (err, GuestInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(GuestInfo)
+            }
+        })
+    },
 }
