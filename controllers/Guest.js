@@ -44,7 +44,7 @@ module.exports = {
         })
     },
     updateById: function (req, res, next) {
-        Guest.findByIdAndUpdate(req.params.itemId, {
+        Guest.findByIdAndUpdate(req.params.guestId, {
             company: req.body.company,
             fullname: req.body.fullname,
             email: req.body.email,
@@ -59,4 +59,14 @@ module.exports = {
             }
         })
     },
+    deleteByid: function (req, res, next) {
+        Guest.findByIdAndRemove(req.params.guestId, function (err, GuestInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(GuestInfo
+                )
+            }
+        })
+    }
 }

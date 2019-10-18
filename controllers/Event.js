@@ -44,7 +44,7 @@ module.exports = {
         })
     },
     updateById: function (req, res, next) {
-        Event.findByIdAndUpdate(req.params.itemId, {
+        Event.findByIdAndUpdate(req.params.eventId, {
             name: req.body.name,
             description: req.body.description,
             date: req.body.date,
