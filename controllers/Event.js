@@ -43,6 +43,23 @@ module.exports = {
             }
         })
     },
+    updateById: function (req, res, next) {
+        Event.findByIdAndUpdate(req.params.itemId, {
+            name: req.body.name,
+            description: req.body.description,
+            date: req.body.date,
+            time: req.body.time,
+            status: req.body.status,
+            price: req.body.price,
+            images: req.file.path
+        }, function (err, Eventinfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(Eventinfo)
+            }
+        })
+    },
     deleteByid: function (req, res, next) {
         Event.findByIdAndRemove(req.params.eventId, function (err, EvenInfo) {
             if (err)
