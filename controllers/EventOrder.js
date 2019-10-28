@@ -82,6 +82,16 @@ module.exports = {
 
             })
         return;
+    },
+    deleteByid: function (req, res, next) {
+        Order.findByIdAndRemove(req.params.orderId, function (err, OrderInfo) {
+            if (err)
+                next(err)
+            else {
+                res.json(OrderInfo
+                )
+            }
+        })
     }
 
 }
